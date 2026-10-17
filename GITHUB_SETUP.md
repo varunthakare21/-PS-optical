@@ -7,30 +7,31 @@ This guide details how your repository is connected to GitHub and how to publish
 ## 📌 Repository Information
 - **GitHub Username:** `varunthakare21`
 - **Email:** `varunthakare21@gmail.com`
-- **Target Repository URL:** `https://github.com/varunthakare21/ps-optical.git`
+- **Target Repository URL:** `https://github.com/varunthakare21/-PS-optical.git`
+- **GitHub Web URL:** `https://github.com/varunthakare21/-PS-optical`
 - **Primary Branch:** `main`
 
 ---
 
-## 🛠️ Step 1: Create the Empty Repository on GitHub (One-Time)
+## 🚀 Step 1: Initial Upload to GitHub (One-Time)
 
-If you haven't created the repository on GitHub yet:
+Your repository on GitHub was created as **`-PS-optical`**. 
 
-1. Open your browser and go to: **[https://github.com/new](https://github.com/new)**
-2. In **Repository name**, enter: `ps-optical`
-3. Choose **Public** or **Private** based on your preference.
-4. ⚠️ **IMPORTANT**: Do **NOT** check *"Add a README file"*, and do **NOT** add a .gitignore or license (these are already configured locally in your project).
-5. Click the green **Create repository** button.
+To upload your entire local code:
 
----
+### Option A: Double-Click Helper (Easiest)
+1. Double-click the file **`first-push.bat`** in your project folder.
+2. A window will open. If prompted, click **"Sign in with your browser"** to authorize GitHub.
+3. The upload will complete automatically!
 
-## 🚀 Step 2: Push the Initial Code to GitHub
-
-Open your terminal in this project folder (`c:\Users\ASUS\OneDrive\Desktop\Ps optical`) and run:
+### Option B: Terminal Command
+Run this command in your terminal (`c:\Users\ASUS\OneDrive\Desktop\Ps optical`):
 
 ```powershell
-git push -u origin main
+git push -u origin main --force
 ```
+
+*(The `--force` flag is only needed for the first push because GitHub created an empty initial README.md when the repository was created).*
 
 *(If GitHub prompts you to authenticate, sign in with your GitHub browser window or Personal Access Token).*
 
