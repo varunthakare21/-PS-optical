@@ -107,20 +107,41 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
 
 // Connect to MongoDB and start server
 const startServer = async () => {
-  const targetUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ps-optical';
-  try {
-    console.log(`Connecting to MongoDB at: ${targetUri}...`);
-    await mongoose.connect(targetUri, { serverSelectionTimeoutMS: 15000 });
-    console.log('✅ MongoDB Atlas connected successfully');
-  } catch (err: any) {
-    console.warn(`⚠️ Could not connect to local MongoDB (${err.message}).`);
-    console.log('⚡ Launching embedded in-memory MongoDB server for seamless zero-setup execution...');
+  let dbConnected = false;
+  const atlasUri = process.env.MONGODB_URI;
+
+  if (atlasUri && atlasUri.startsWith('mongodb')) {
+    try {
+      console.log(`📡 Connecting to MongoDB Atlas (${atlasUri.split('@')[1] || 'cluster'})...`);
+      await mongoose.connect(atlasUri, {
+        serverSelectionTimeoutMS: 5000,
+        socketTimeoutMS: 30000,
+        family: 4,
+      });
+      // Crucial: verify ping before assuming connection is ready
+      await mongoose.connection.db?.admin().ping();
+      console.log('✅ MongoDB Atlas connected and verified successfully!');
+      dbConnected = true;
+    } catch (err: any) {
+      console.warn(`⚠️ MongoDB Atlas ping/connection failed: ${err.message}`);
+      console.log('💡 Note: If using Atlas, ensure your IP address is whitelisted in Atlas Network Access (0.0.0.0/0).');
+      try {
+        await mongoose.disconnect();
+      } catch {}
+      dbConnected = false;
+    }
+  }
+
+  if (!dbConnected) {
+    console.log('⚡ Launching embedded high-speed in-memory MongoDB server for seamless zero-setup execution...');
     try {
       const { MongoMemoryServer } = await import('mongodb-memory-server');
       const mongod = await MongoMemoryServer.create();
       const memoryUri = mongod.getUri();
       console.log(`✅ In-memory MongoDB running at: ${memoryUri}`);
       await mongoose.connect(memoryUri);
+      console.log('✅ Connected to in-memory MongoDB database.');
+      dbConnected = true;
     } catch (memErr: any) {
       console.error('❌ Failed to start in-memory MongoDB:', memErr.message);
       process.exit(1);
@@ -136,9 +157,11 @@ const startServer = async () => {
       const { runSeed } = await import('./utils/seed');
       await runSeed(false);
       console.log('✅ Auto-seed completed successfully!');
+    } else {
+      console.log(`📦 Database ready with ${userCount} existing users.`);
     }
   } catch (seedErr: any) {
-    console.warn('⚠️ Auto-seed check warning:', seedErr.message);
+    console.error('❌ Auto-seed check error:', seedErr.message);
   }
 
   app.listen(PORT, () => {
