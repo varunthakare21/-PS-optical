@@ -22,7 +22,13 @@ export default function WorkerLogin() {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Form>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<Form>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: 'worker@psoptical.com',
+      password: 'Worker@123',
+    },
+  });
 
   const onSubmit = async (data: Form) => {
     setLoading(true);
@@ -36,6 +42,12 @@ export default function WorkerLogin() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleQuickDemoLogin = (email: string, pw: string) => {
+    setValue('email', email, { shouldValidate: true });
+    setValue('password', pw, { shouldValidate: true });
+    onSubmit({ email, password: pw });
   };
 
   const inp = {
@@ -62,7 +74,7 @@ export default function WorkerLogin() {
           <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#4A3A33', marginBottom: '0.375rem' }}>
             Work Email / Employee Identifier
           </label>
-          <input {...register('email')} type="email" placeholder="optician@psoptical.in" style={inp} />
+          <input {...register('email')} type="email" placeholder="worker@psoptical.com" style={inp} />
           {errors.email && <p style={{ color: '#B65E43', fontSize: '0.75rem', margin: '4px 0 0' }}>{errors.email.message}</p>}
         </div>
 
@@ -91,6 +103,44 @@ export default function WorkerLogin() {
           {errors.password && <p style={{ color: '#B65E43', fontSize: '0.75rem', margin: '4px 0 0' }}>{errors.password.message}</p>}
         </div>
 
+        {/* 1-Click Demo Buttons */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.25rem' }}>
+          <button
+            type="button"
+            onClick={() => handleQuickDemoLogin('worker@psoptical.com', 'Worker@123')}
+            style={{
+              padding: '0.65rem 0.5rem',
+              borderRadius: 6,
+              background: '#F5F6F2',
+              border: '1.5px solid #72785A',
+              color: '#3A4030',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            ⚡ Demo Worker (.com)
+          </button>
+          <button
+            type="button"
+            onClick={() => handleQuickDemoLogin('worker@psoptical.in', 'Worker@12345')}
+            style={{
+              padding: '0.65rem 0.5rem',
+              borderRadius: 6,
+              background: '#F5F6F2',
+              border: '1.5px solid #72785A',
+              color: '#3A4030',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            ⚡ Demo Worker (.in)
+          </button>
+        </div>
+
         <button
           type="submit"
           disabled={loading}
@@ -98,7 +148,7 @@ export default function WorkerLogin() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
             background: loading ? '#8A9070' : '#72785A', color: 'white', padding: '0.9rem',
             borderRadius: 7, border: 'none', fontFamily: 'Inter, sans-serif', fontSize: '0.9rem',
-            fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', marginTop: '0.5rem',
+            fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', marginTop: '0.25rem',
           }}
         >
           {loading ? 'Authenticating…' : <><LogIn size={17} /> Sign In to Store Portal</>}

@@ -21,7 +21,13 @@ export default function CustomerLogin() {
   const { login } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm<Form>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<Form>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: 'customer@psoptical.com',
+      password: 'Customer@123',
+    },
+  });
 
   const onSubmit = async (data: Form) => {
     setLoading(true);
@@ -33,6 +39,12 @@ export default function CustomerLogin() {
     } catch (err: any) {
       showToast(err.response?.data?.message || 'Login failed. Please try again.', 'error');
     } finally { setLoading(false); }
+  };
+
+  const handleQuickDemoLogin = (email: string, pw: string) => {
+    setValue('email', email, { shouldValidate: true });
+    setValue('password', pw, { shouldValidate: true });
+    onSubmit({ email, password: pw });
   };
 
   const inputStyle = {
@@ -81,6 +93,44 @@ export default function CustomerLogin() {
             </button>
           </div>
           {errors.password && <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem', color: '#B65E43', margin: '4px 0 0' }}>{errors.password.message}</p>}
+        </div>
+
+        {/* 1-Click Demo Customer Buttons */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.25rem' }}>
+          <button
+            type="button"
+            onClick={() => handleQuickDemoLogin('customer@psoptical.com', 'Customer@123')}
+            style={{
+              padding: '0.65rem 0.5rem',
+              borderRadius: 6,
+              background: '#FDF8F3',
+              border: '1.5px solid #B65E43',
+              color: '#B65E43',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            ⚡ Demo Customer (.com)
+          </button>
+          <button
+            type="button"
+            onClick={() => handleQuickDemoLogin('customer@psoptical.in', 'Customer@12345')}
+            style={{
+              padding: '0.65rem 0.5rem',
+              borderRadius: 6,
+              background: '#FDF8F3',
+              border: '1.5px solid #B65E43',
+              color: '#B65E43',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            ⚡ Demo Customer (.in)
+          </button>
         </div>
 
         <button type="submit" disabled={loading}

@@ -38,16 +38,16 @@ app.use(helmet({
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 300,
+  max: 2000,
   standardHeaders: true,
   legacyHeaders: false,
 });
 app.use('/api/', limiter);
 
-// Auth routes get stricter rate limit
+// Auth routes rate limit (generous for development and local testing)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 20,
+  max: 500,
   message: { success: false, message: 'Too many requests, please try again later.' },
 });
 app.use('/api/v1/auth', authLimiter);

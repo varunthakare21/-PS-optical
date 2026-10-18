@@ -40,6 +40,7 @@ const AdminResetPassword = lazy(() => import('./features/auth/pages/AdminResetPa
 
 // Customer dashboard
 const CustomerDashboard = lazy(() => import('./features/customer/CustomerDashboard'));
+const CustomerFrames = lazy(() => import('./features/customer/CustomerFrames'));
 const CustomerOrders = lazy(() => import('./features/customer/CustomerOrders'));
 const CustomerOrderDetail = lazy(() => import('./features/customer/CustomerOrderDetail'));
 const CustomerWishlist = lazy(() => import('./features/customer/CustomerWishlist'));
@@ -116,6 +117,7 @@ export default function App() {
                 <Route element={<ProtectedRoute allowedRoles={['customer']} redirectTo="/customer/login" />}>
                   <Route element={<DashboardLayout role="customer" />}>
                     <Route path="/customer/dashboard" element={<CustomerDashboard />} />
+                    <Route path="/customer/frames" element={<CustomerFrames />} />
                     <Route path="/customer/orders" element={<CustomerOrders />} />
                     <Route path="/customer/orders/:id" element={<CustomerOrderDetail />} />
                     <Route path="/customer/wishlist" element={<CustomerWishlist />} />

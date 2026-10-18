@@ -22,9 +22,18 @@ api.interceptors.response.use(
       localStorage.removeItem('ps_token');
       localStorage.removeItem('ps_user');
       const path = window.location.pathname;
-      if (path.startsWith('/admin')) window.location.href = '/admin/login';
-      else if (path.startsWith('/worker')) window.location.href = '/worker/login';
-      else if (path.startsWith('/customer/dashboard')) window.location.href = '/customer/login';
+      const isAuthRoute =
+        path.includes('/login') ||
+        path.includes('/register') ||
+        path.includes('/forgot-password') ||
+        path.includes('/reset-password') ||
+        path.includes('/verify-email');
+
+      if (!isAuthRoute) {
+        if (path.startsWith('/admin')) window.location.href = '/admin/login';
+        else if (path.startsWith('/worker')) window.location.href = '/worker/login';
+        else if (path.startsWith('/customer/dashboard')) window.location.href = '/customer/login';
+      }
     }
     return Promise.reject(error);
   }

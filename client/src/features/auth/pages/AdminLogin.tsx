@@ -22,7 +22,13 @@ export default function AdminLogin() {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Form>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<Form>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: 'admin@psoptical.com',
+      password: 'Admin@123',
+    },
+  });
 
   const onSubmit = async (data: Form) => {
     setLoading(true);
@@ -36,6 +42,12 @@ export default function AdminLogin() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleQuickDemoLogin = (email: string, pw: string) => {
+    setValue('email', email, { shouldValidate: true });
+    setValue('password', pw, { shouldValidate: true });
+    onSubmit({ email, password: pw });
   };
 
   const inp = {
@@ -99,6 +111,44 @@ export default function AdminLogin() {
           {errors.password && <p style={{ color: '#E57373', fontSize: '0.75rem', margin: '4px 0 0' }}>{errors.password.message}</p>}
         </div>
 
+        {/* 1-Click Demo Buttons */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.25rem' }}>
+          <button
+            type="button"
+            onClick={() => handleQuickDemoLogin('admin@psoptical.com', 'Admin@123')}
+            style={{
+              padding: '0.65rem 0.5rem',
+              borderRadius: 6,
+              background: '#2A2825',
+              border: '1.5px solid #D4B483',
+              color: '#D4B483',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            ⚡ Demo Admin (.com)
+          </button>
+          <button
+            type="button"
+            onClick={() => handleQuickDemoLogin('admin@psoptical.in', 'Admin@123')}
+            style={{
+              padding: '0.65rem 0.5rem',
+              borderRadius: 6,
+              background: '#2A2825',
+              border: '1.5px solid #D4B483',
+              color: '#D4B483',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            ⚡ Demo Admin (.in)
+          </button>
+        </div>
+
         <button
           type="submit"
           disabled={loading}
@@ -106,7 +156,7 @@ export default function AdminLogin() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
             background: loading ? '#B8965E' : '#D4B483', color: '#1E1C19', padding: '0.9rem',
             borderRadius: 7, border: 'none', fontFamily: 'Inter, sans-serif', fontSize: '0.9rem',
-            fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', marginTop: '0.5rem',
+            fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', marginTop: '0.25rem',
           }}
         >
           {loading ? 'Authenticating…' : <><Lock size={16} /> Authorize Admin Session</>}

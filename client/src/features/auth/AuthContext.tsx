@@ -25,15 +25,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(JSON.parse(storedUser));
       } catch { localStorage.clear(); }
     }
-    // Verify token with server
-    authAPI.getMe().then((res) => {
-      setUser(res.data.user);
-      localStorage.setItem('ps_user', JSON.stringify(res.data.user));
-    }).catch(() => {
-      setUser(null);
-      localStorage.removeItem('ps_user');
-      localStorage.removeItem('ps_token');
-    }).finally(() => setIsLoading(false));
+    if (storedToken) {
+      // Verify token with server
+      authAPI.getMe().then((res) => {
+        setUser(res.data.user);
+        localStorage.setItem('ps_user', JSON.stringify(res.data.user));
+      }).catch(() => {
+        setUser(null);
+        localStorage.removeItem('ps_user');
+        localStorage.removeItem('ps_token');
+      }).finally(() => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   const login = (user: User, token: string) => {

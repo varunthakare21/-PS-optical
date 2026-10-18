@@ -7,12 +7,13 @@ import {
   LayoutDashboard, ShoppingBag, Heart, User, ClipboardList,
   Calendar, RotateCcw, MessageSquare, LogOut, Menu, X,
   Store, Users, FileText, Tag, Star, BarChart2, Boxes,
-  ShieldCheck, Package,
+  ShieldCheck, Package, Eye,
 } from 'lucide-react';
 
 const navs = {
   customer: [
     { label: 'Dashboard', to: '/customer/dashboard', icon: LayoutDashboard },
+    { label: 'Browse Frames', to: '/customer/frames', icon: Eye },
     { label: 'My Orders', to: '/customer/orders', icon: ShoppingBag },
     { label: 'Wishlist', to: '/customer/wishlist', icon: Heart },
     { label: 'Prescriptions', to: '/customer/prescriptions', icon: ClipboardList },
