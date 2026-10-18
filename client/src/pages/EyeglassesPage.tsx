@@ -6,7 +6,7 @@ import { productsAPI } from '../services/api';
 import { Product } from '../types';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
-const SHAPES = ['round', 'rectangle', 'cat-eye', 'aviator', 'wayfarer', 'square', 'oval', 'geometric'];
+const SHAPES = ['round', 'rectangle', 'cat-eye', 'aviator', 'wayfarer', 'square', 'oval', 'geometric', 'browline'];
 const GENDERS = ['men', 'women', 'unisex', 'kids'];
 const SIZES = ['narrow', 'medium', 'wide', 'extra-wide'];
 const MATERIALS = ['Acetate', 'Titanium', 'Stainless Steel', 'TR90 Memory Plastic'];
@@ -43,6 +43,7 @@ export default function EyeglassesPage() {
     setLoading(true);
     const params: any = {
       category: 'eyeglasses',
+      limit: 48,
       frameShape: selectedShape || undefined,
       gender: selectedGender || undefined,
       frameSize: selectedSize || undefined,

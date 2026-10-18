@@ -14,7 +14,7 @@ export default function SunglassesPage() {
 
   useEffect(() => {
     setLoading(true);
-    productsAPI.getProducts({ category: 'sunglasses', sort: selectedSort })
+    productsAPI.getProducts({ category: 'sunglasses', sort: selectedSort, limit: 48 })
       .then((res) => {
         setProducts(res.data.data || []);
       })

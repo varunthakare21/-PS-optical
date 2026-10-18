@@ -28,7 +28,7 @@ export default function VirtualTryOnPage() {
   const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
-    productsAPI.getProducts({ limit: 12 })
+    productsAPI.getProducts({ limit: 50 })
       .then((res) => {
         const list = res.data.data || [];
         setProducts(list);
