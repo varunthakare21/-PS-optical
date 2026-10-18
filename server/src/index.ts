@@ -110,8 +110,8 @@ const startServer = async () => {
   const targetUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ps-optical';
   try {
     console.log(`Connecting to MongoDB at: ${targetUri}...`);
-    await mongoose.connect(targetUri, { serverSelectionTimeoutMS: 2000 });
-    console.log('✅ MongoDB connected');
+    await mongoose.connect(targetUri, { serverSelectionTimeoutMS: 15000 });
+    console.log('✅ MongoDB Atlas connected successfully');
   } catch (err: any) {
     console.warn(`⚠️ Could not connect to local MongoDB (${err.message}).`);
     console.log('⚡ Launching embedded in-memory MongoDB server for seamless zero-setup execution...');
