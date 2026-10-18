@@ -9,9 +9,8 @@ import { productsAPI } from '../../services/api';
 
 const NAV = [
   { label: 'Eyeglasses', href: '/eyeglasses', items: ["Men's", "Women's", 'Unisex', 'Round', 'Rectangle', 'Cat-Eye', 'Rimless', 'Full-Rim'] },
-  { label: 'Sunglasses', href: '/sunglasses', items: ['Polarized', 'Aviator', 'Wayfarer', 'Oversized', 'Sports'] },
+  { label: 'Sunglasses & Shades', href: '/sunglasses', items: ['Polarized', 'Aviator', 'Wayfarer', 'Oversized', 'Sports'] },
   { label: 'Computer Glasses', href: '/eyeglasses?type=computer' },
-  { label: 'Contact Lenses', href: '/contact-lenses' },
   { label: 'New Arrivals', href: '/eyeglasses?new=true' },
   { label: 'Offers', href: '/offers' },
   { label: 'Find a Store', href: '/store-locator' },

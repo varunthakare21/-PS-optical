@@ -58,6 +58,16 @@ export default function CustomerFrames() {
   };
 
   const filteredFrames = products.filter((p) => {
+    // Strict Eyewear Only Filter: exclude any non-eyewear items
+    const isEyewear =
+      p.category?.slug?.includes('eye') ||
+      p.category?.slug?.includes('sun') ||
+      p.category?.slug?.includes('glass') ||
+      p.frameShape ||
+      p.lensWidth ||
+      p.tags?.some((t) => ['sunglasses', 'frames', 'shades', 'optical', 'eyeglasses'].includes(t.toLowerCase()));
+    if (!isEyewear) return false;
+
     const q = search.toLowerCase();
     const matchesSearch =
       !q ||
@@ -102,13 +112,13 @@ export default function CustomerFrames() {
       >
         <div style={{ maxWidth: 640 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#D4B483', color: '#1E1C19', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '3px 10px', borderRadius: 4, marginBottom: '0.75rem' }}>
-            <Sparkles size={13} /> Optical Frame Gallery
+            <Sparkles size={13} /> Optical Frames & Shades Gallery
           </div>
           <h1 style={{ fontFamily: 'Georgia, serif', fontSize: '2rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#FFFFFF' }}>
-            Explore Handcrafted Designer Eyewear
+            Handcrafted Frames, Sunglasses & Shades
           </h1>
           <p style={{ fontFamily: 'Inter, sans-serif', color: '#E8E2D9', fontSize: '0.95rem', margin: '0 0 1.5rem', lineHeight: 1.6 }}>
-            Browse luxury frames crafted with Japanese titanium and Italian Mazzucchelli acetate. Try them on live via your webcam or customize with precision prescription lenses.
+            Browse curated optical frames and designer sunglasses crafted with Japanese titanium and Italian Mazzucchelli acetate. Try them on live via your webcam or customize with precision prescription lenses.
           </p>
 
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -191,11 +201,11 @@ export default function CustomerFrames() {
         {/* Category Pills */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', borderTop: '1px solid #F0EAE0', paddingTop: '0.85rem' }}>
           {[
-            { id: 'all', label: 'All Collections' },
-            { id: 'eyeglasses', label: '👓 Eyeglasses' },
-            { id: 'sunglasses', label: '🕶️ Sunglasses' },
-            { id: 'titanium', label: '✨ Titanium Frames' },
-            { id: 'rimless', label: '🪶 Rimless Lightweight' },
+            { id: 'all', label: 'All Frames & Shades' },
+            { id: 'eyeglasses', label: '👓 Optical Frames' },
+            { id: 'sunglasses', label: '🕶️ Sunglasses & Shades' },
+            { id: 'titanium', label: '✨ Titanium Luxury' },
+            { id: 'rimless', label: '🪶 Rimless & Wire' },
           ].map((cat) => (
             <button
               key={cat.id}

@@ -66,6 +66,7 @@ app.use(cookieParser());
 
 // Static uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/images', express.static(path.join(__dirname, '../../client/public/images')));
 
 // API Routes
 app.use('/api/v1/auth', authRoutes);

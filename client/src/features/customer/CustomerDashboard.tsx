@@ -18,7 +18,17 @@ export default function CustomerDashboard() {
     wishlistAPI.getWishlist().then((res) => setWishlistCount(res.data.data?.products?.length || 0)).catch(() => {});
     appointmentsAPI.getMyAppointments().then((res) => setAppointmentCount(res.data.data?.length || 0)).catch(() => {});
     prescriptionsAPI.getAll().then((res) => setPrescriptionCount(res.data.data?.length || 0)).catch(() => {});
-    productsAPI.getProducts({ limit: 4 }).then((res) => setFeaturedFrames(res.data.data || [])).catch(() => {});
+    productsAPI.getProducts({ limit: 20 }).then((res) => {
+      const all: Product[] = res.data.data || [];
+      const onlyEyewear = all.filter((p) =>
+        p.category?.slug?.includes('eye') ||
+        p.category?.slug?.includes('sun') ||
+        p.category?.slug?.includes('glass') ||
+        p.frameShape ||
+        p.tags?.some((t) => ['sunglasses', 'frames', 'shades', 'optical', 'eyeglasses'].includes(t.toLowerCase()))
+      );
+      setFeaturedFrames(onlyEyewear.slice(0, 6));
+    }).catch(() => {});
   }, []);
 
   return (
@@ -35,7 +45,7 @@ export default function CustomerDashboard() {
       {/* Metrics Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
         {[
-          { label: 'Browse Frames', count: 'Gallery', icon: Eye, href: '/customer/frames', color: '#D4B483' },
+          { label: 'Browse Frames & Shades', count: 'Gallery', icon: Eye, href: '/customer/frames', color: '#D4B483' },
           { label: 'Active Orders', count: recentOrders.length, icon: ShoppingBag, href: '/customer/orders', color: '#B65E43' },
           { label: 'Saved Frames', count: wishlistCount, icon: Heart, href: '/customer/wishlist', color: '#B65E43' },
           { label: 'Eye Appointments', count: appointmentCount, icon: Calendar, href: '/customer/appointments', color: '#72785A' },
@@ -60,14 +70,14 @@ export default function CustomerDashboard() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, background: '#F6F1E8', color: '#B65E43', fontSize: '0.7rem', fontWeight: 700, padding: '2px 8px', borderRadius: 4, textTransform: 'uppercase', marginBottom: 4 }}>
-              <Sparkles size={11} /> Designer Eyewear Collection
+              <Sparkles size={11} /> Designer Frames & Shades Collection
             </div>
             <h2 style={{ fontFamily: 'Georgia, serif', fontSize: '1.35rem', color: '#30251F', margin: 0 }}>
-              Curated Optical Frames For You
+              Curated Eyewear & Sunglasses For You
             </h2>
           </div>
           <Link to="/customer/frames" style={{ color: '#B65E43', fontSize: '0.875rem', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}>
-            View Complete Catalog ({featuredFrames.length}+ Frames) <ArrowRight size={15} />
+            Explore All Frames & Shades <ArrowRight size={15} />
           </Link>
         </div>
 

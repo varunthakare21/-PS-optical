@@ -35,9 +35,9 @@ const cols = [
     title: 'Shop',
     links: [
       { label: 'Eyeglasses', to: '/eyeglasses' },
-      { label: 'Sunglasses', to: '/sunglasses' },
+      { label: 'Sunglasses & Shades', to: '/sunglasses' },
       { label: 'Computer Glasses', to: '/eyeglasses?type=computer' },
-      { label: 'Contact Lenses', to: '/contact-lenses' },
+      { label: 'Titanium & Rimless', to: '/eyeglasses?material=titanium' },
       { label: "Kids' Eyewear", to: '/eyeglasses?gender=kids' },
       { label: 'New Arrivals', to: '/eyeglasses?new=true' },
       { label: 'Offers', to: '/offers' },

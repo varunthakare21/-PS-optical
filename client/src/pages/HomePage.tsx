@@ -122,12 +122,12 @@ export default function HomePage() {
   }, []);
 
   const categories = [
-    { label: 'Eyeglasses', href: '/eyeglasses', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&q=80&auto=format', color: '#F0EAE0' },
-    { label: 'Sunglasses', href: '/sunglasses', img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80&auto=format', color: '#EDE0D0' },
-    { label: 'Computer Glasses', href: '/eyeglasses?type=computer', img: 'https://images.unsplash.com/photo-1448932223592-d1fc686e76ea?w=400&q=80&auto=format', color: '#E8E8E0' },
-    { label: "Kids' Eyewear", href: '/eyeglasses?gender=kids', img: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80&auto=format', color: '#EAE0E8' },
-    { label: 'Contact Lenses', href: '/contact-lenses', img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80&auto=format', color: '#E0EAE8' },
-    { label: 'Accessories', href: '/accessories', img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80&auto=format', color: '#E8E4D8' },
+    { label: 'Eyeglasses & Frames', href: '/eyeglasses', img: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400&q=80&auto=format', color: '#F0EAE0' },
+    { label: 'Sunglasses & Shades', href: '/sunglasses', img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80&auto=format', color: '#EDE0D0' },
+    { label: 'Computer Glasses', href: '/eyeglasses?type=computer', img: '/images/frames/screen-bluecut.jpg', color: '#E8E8E0' },
+    { label: 'Titanium & Rimless', href: '/eyeglasses?material=titanium', img: '/images/frames/rimless-titanium.jpg', color: '#EAE0E8' },
+    { label: 'Bold Statement Shades', href: '/sunglasses', img: '/images/frames/bold-black-square.jpg', color: '#E0EAE8' },
+    { label: "Kids' Eyewear", href: '/eyeglasses?gender=kids', img: '/images/frames/crystal-clear.jpg', color: '#E8E4D8' },
   ];
 
   return (
